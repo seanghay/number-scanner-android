@@ -1,9 +1,6 @@
 package com.seanghay.numberscanner
 
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.PixelFormat
-import android.graphics.PorterDuff
+import android.graphics.*
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.SurfaceHolder
@@ -35,6 +32,7 @@ class ScannerFragment : Fragment() {
     override fun surfaceDestroyed(holder: SurfaceHolder) {
 
     }
+
   }
 
   private fun drawBoundBox(holder: SurfaceHolder) {
@@ -45,22 +43,33 @@ class ScannerFragment : Fragment() {
     val boxSize = height / 2.4f
 
     val left = (width - boxSize) / 2f
-    val right = left + boxSize
+    val right = left + boxSize.toFloat()
     val top = (height - boxSize) / 2f
-    val bottom = top + boxSize
+    val bottom = top + boxSize.toFloat()
 
     val canvas = holder.lockCanvas()
-    canvas.drawColor(0, PorterDuff.Mode.CLEAR)
 
     val paint = Paint()
-
     paint.style = Paint.Style.FILL
-    paint.color = Color.parseColor("#90000000")
-    canvas.drawRect(left, top, right, bottom, paint)
+    paint.color = Color.parseColor("#50ff0000")
+
+    val path = Path()
+
+    path.apply {
+      moveTo(0f, 0f)
+      lineTo(width.toFloat(), 0f)
+      lineTo(width.toFloat(), height.toFloat())
+      lineTo(0f, height.toFloat())
+      lineTo(0f, 0f)
+      close()
+    }
+
+    canvas.clipOutRect(left.toFloat(), top.toFloat(), right.toFloat(), bottom.toFloat())
+    canvas.drawPath(path, paint)
 
     paint.style = Paint.Style.STROKE
-    paint.color = Color.WHITE
-    paint.strokeWidth = 5f
+    paint.strokeWidth = 10f
+    paint.color = Color.RED
 
     canvas.drawRect(left, top, right, bottom, paint)
 
