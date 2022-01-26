@@ -54,6 +54,7 @@ dependencies {
     implementation "androidx.camera:camera-view:1.0.0-alpha32"
 
     implementation 'com.squareup.logcat:logcat:0.1'
+    implementation 'com.google.android.gms:play-services-mlkit-text-recognition:18.0.0'
 
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
